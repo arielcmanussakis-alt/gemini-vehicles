@@ -1,0 +1,116 @@
+/* Gemini Vehicles 0.4.0 | uses Gemini/Mythras visual proportions and assets */
+.gemini-vehicle-sheet {--gv-bg:var(--sheet-background,#040611);--gv-panel:#1e1f29;--gv-sub:#31313d;--gv-purple:var(--sheet-button-light,#9200bf);--gv-primary:var(--sheet-primary-light,#b500e5);color:#fafaff;font-family:Figtree,Arial,sans-serif}
+.gemini-vehicle-sheet .window-content {padding:0!important;background:var(--gv-bg)!important;overflow:hidden!important}
+.gemini-vehicle-sheet .window-content>form {height:100%;overflow:hidden;min-height:0}
+.gemini-vehicle-sheet .gv-shell,.gemini-vehicle-sheet .gv-shell *{box-sizing:border-box}
+.gemini-vehicle-sheet .gv-shell{height:100%;min-height:0;width:100%;padding:13px;display:flex;gap:11px;background:var(--gv-bg);overflow:hidden;position:relative;isolation:isolate}
+/* Vehicle image is a 9:16 column of nearly full sheet height; never part of a tab */
+.gemini-vehicle-sheet .gv-theme-media{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;opacity:.25}
+.gemini-vehicle-sheet .gv-theme-media>img,.gemini-vehicle-sheet .gv-theme-media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gemini-vehicle-sheet .gv-theme-media>video{opacity:.8}
+.gemini-vehicle-sheet .gv-token,.gemini-vehicle-sheet .gv-workspace{position:relative;z-index:1}
+.gemini-vehicle-sheet .gv-token{height:100%;width:auto;aspect-ratio:9/16;flex:0 0 auto;min-width:0;position:relative;overflow:hidden;border-radius:15px;background:radial-gradient(circle at 50% 40%,#323545,#1e1f29 72%)}
+.gemini-vehicle-sheet .gv-token-img{width:100%;height:100%;object-fit:contain;display:block;border:0!important}
+.gemini-vehicle-sheet .gv-token-shade{position:absolute;inset:68% 0 0;background:linear-gradient(0deg,#070910ef,transparent);pointer-events:none}
+.gemini-vehicle-sheet .gv-token-caption{position:absolute;bottom:14px;left:15px;right:15px;display:flex;align-items:center;gap:8px;font-size:10px;color:#d3d3dc;font-weight:850;letter-spacing:1px;pointer-events:none}
+.gemini-vehicle-sheet .gv-token-caption i{color:#ad00df;font-size:14px}
+.gemini-vehicle-sheet .gv-token-edit{position:absolute;right:11px;top:11px;width:28px;height:28px;min-height:28px;background:#11131bcf!important;border:0!important;border-radius:7px!important;box-shadow:none!important;color:#fff!important;padding:0!important;cursor:pointer}
+.gemini-vehicle-sheet .gv-workspace{display:flex;flex:1;min-height:0;min-width:0;flex-direction:column;gap:10px}
+/* Right header has portrait image in a persistent full-bleed quadrant */
+.gemini-vehicle-sheet .gv-header-grid{display:grid;grid-template-columns:minmax(0,1fr) 186px;grid-template-rows:80px 128px 61px;gap:9px;flex:0 0 287px;min-height:0}
+.gemini-vehicle-sheet .gv-identity{display:flex;flex-direction:column;justify-content:center;grid-column:1;grid-row:1;background-image:linear-gradient(90deg,#1e1f29f3,#1e1f29bf),var(--gv-banner-image,url('/systems/mythras/assets/sheet/img/gfu-card-bg-logo.png'));background-position:0 0,95% 55%;background-size:100% 100%,auto 105px;background-repeat:no-repeat;border-radius:15px;padding:9px 16px;min-width:0;overflow:hidden}
+.gemini-vehicle-sheet .gv-brand{font-weight:900;color:#fff;font-size:9px;letter-spacing:.5px;display:flex;align-items:center;gap:5px;line-height:1.2}
+.gemini-vehicle-sheet .gv-brand-mark{color:#b900ed;font-size:13px}.gemini-vehicle-sheet .gv-brand-muted{color:#858693;font-weight:700}
+.gemini-vehicle-sheet .gv-identity .gv-name{padding:0!important;height:30px;min-height:30px;background:transparent!important;border:0!important;box-shadow:none!important;color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;font-weight:900;font-size:27px!important;width:100%;text-overflow:ellipsis;overflow:hidden}
+.gemini-vehicle-sheet .gv-ident-desc{font-size:10px;font-style:italic;color:#9999a7}.gemini-vehicle-sheet .gv-ident-desc i{font-size:8px;color:#c000f1}.gemini-vehicle-sheet .gv-ident-desc span{margin:0 4px}
+.gemini-vehicle-sheet .gv-stats{grid-column:1;grid-row:2;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;min-height:0}
+.gemini-vehicle-sheet .gv-stat{position:relative;border-radius:15px;padding:10px 11px;display:flex;flex-direction:column;align-items:stretch;gap:5px;min-width:0;overflow:hidden;background:color-mix(in srgb,var(--gv-accent) 14%,#080912);color:var(--gv-accent)}
+.gemini-vehicle-sheet .gv-stat-structure{--gv-accent:#e93d6d}.gemini-vehicle-sheet .gv-stat-casco{--gv-accent:#ffa047}.gemini-vehicle-sheet .gv-stat-shields{--gv-accent:#92e9d9}
+.gemini-vehicle-sheet .gv-stat-top{display:flex;justify-content:center;align-items:center;font-size:10px;font-weight:900;letter-spacing:.4px;position:relative;text-align:center}
+.gemini-vehicle-sheet .gv-stat-top i{font-size:12px;position:absolute;right:0;top:0}
+.gemini-vehicle-sheet .gv-stat-numbers{display:flex;justify-content:center;align-items:center;gap:2px;min-height:32px}
+.gemini-vehicle-sheet .gv-stat-numbers input{width:44px;min-width:0!important;max-width:43%;text-align:right;font-family:'Fira Mono',monospace;font-size:24px!important;font-weight:900;height:32px!important;min-height:32px!important;border:0!important;border-radius:5px!important;background:transparent!important;color:var(--gv-accent)!important;padding:0!important;box-shadow:none!important}
+.gemini-vehicle-sheet .gv-stat-numbers input:focus{background:#11121d!important}.gemini-vehicle-sheet .gv-stat-numbers b{font-size:13px;color:#acabb7;font-weight:600}
+.gemini-vehicle-sheet .gv-stat-numbers input:only-of-type{max-width:64px;width:64px;text-align:center}.gemini-vehicle-sheet .gv-stat-unit{font-size:10px!important;letter-spacing:.5px}
+.gemini-vehicle-sheet .gv-stat-bar{background:#171722;height:5px;border-radius:5px;overflow:hidden;flex:0 0 5px}
+.gemini-vehicle-sheet .gv-stat-bar>span{display:block;background:var(--gv-accent);height:100%;border-radius:5px}
+.gemini-vehicle-sheet .gv-stat-caption{font-size:9px;line-height:1.25;color:#aaaaaf;text-align:center;padding-top:8px}
+.gemini-vehicle-sheet .gv-stat-quick{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:auto;min-height:23px}
+.gemini-vehicle-sheet .gv-stat-quick input{width:58px;max-width:75px;background:#11121b!important;border:0!important;border-radius:6px!important;height:23px!important;min-height:23px!important;padding:0 5px!important;box-shadow:none!important;text-align:center;color:#f9f9ff!important;font-size:11px!important}
+.gemini-vehicle-sheet .gv-stat-quick button{width:26px;min-width:26px;height:23px;min-height:23px;padding:0!important;background:#a00839!important;color:#fff!important;border-radius:6px!important;border:0!important;box-shadow:none!important;font-size:12px!important;cursor:pointer;margin:0!important}
+.gemini-vehicle-sheet .gv-basic-info{grid-column:1;grid-row:3;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;background:var(--gv-panel);border-radius:13px;padding:8px 13px;min-width:0;min-height:0}
+.gemini-vehicle-sheet .gv-basic-info label{display:flex;flex-direction:column;gap:1px;min-width:0}.gemini-vehicle-sheet .gv-basic-info label>span{color:#9393a1;font-size:9px;font-weight:900}
+.gemini-vehicle-sheet .gv-basic-info select{width:100%;max-width:100%;height:23px!important;min-height:23px!important;background:transparent!important;border:0!important;border-bottom:1px solid #40404b!important;border-radius:0!important;color:#e9e8f0!important;box-shadow:none!important;font-size:12px!important;font-weight:800;padding:0 17px 0 0!important;text-overflow:ellipsis}
+.gemini-vehicle-sheet select option{background:#262632!important;color:#fff!important}
+.gemini-vehicle-sheet .gv-driver-portrait{grid-column:2;grid-row:1 / 4;border-radius:15px;position:relative;min-width:0;min-height:0;overflow:hidden;background:#1e1f29;isolation:isolate}
+.gemini-vehicle-sheet .gv-driver-img{width:100%;height:100%;border:0!important;object-fit:cover;display:block}
+.gemini-vehicle-sheet .gv-driver-overlay{position:absolute;inset:0;background:linear-gradient(180deg,#07071148 0%,transparent 25%,transparent 54%,#080a10dc 100%);pointer-events:none}
+.gemini-vehicle-sheet .gv-driver-buttons{position:absolute;right:9px;top:9px;display:flex;gap:5px;z-index:2}
+.gemini-vehicle-sheet .gv-driver-buttons button{display:grid;place-items:center;width:27px;min-width:27px;height:27px;min-height:27px;margin:0!important;padding:0!important;background:#0b0d16d9!important;color:#fff!important;box-shadow:none!important;border:0!important;border-radius:7px!important;cursor:pointer;font-size:12px}
+.gemini-vehicle-sheet .gv-driver-buttons button:hover{background:var(--gv-purple)!important}
+.gemini-vehicle-sheet .gv-driver-name{position:absolute;bottom:13px;left:12px;right:11px;text-shadow:0 2px 4px #000;z-index:1;min-width:0}
+.gemini-vehicle-sheet .gv-driver-name small{display:block;color:#c2bbcb;font-size:9px;font-weight:900;letter-spacing:1px}.gemini-vehicle-sheet .gv-driver-name strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gemini-vehicle-sheet .gv-driver-empty{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:13px;pointer-events:none}
+.gemini-vehicle-sheet .gv-driver-empty i{font-size:28px;color:#af00e1}.gemini-vehicle-sheet .gv-driver-empty strong{font-size:10px}.gemini-vehicle-sheet .gv-driver-empty small{font-size:10px;color:#a09fae;line-height:1.4}
+.gemini-vehicle-sheet .gv-driver-drop.gv-dragover{outline:2px solid #ae00df;outline-offset:-3px;background:#310e45}
+/* The only three pages: operations, systems and details */
+.gemini-vehicle-sheet .gv-main-layout{flex:1;display:grid;grid-template-columns:49px minmax(0,1fr);gap:10px;min-height:0;min-width:0;overflow:hidden}
+.gemini-vehicle-sheet .gv-nav{display:flex;flex-direction:column;gap:5px;min-height:0;padding:1px 2px 1px 3px;box-sizing:border-box;overflow:visible}
+.gemini-vehicle-sheet .gv-nav button{outline:0!important;box-sizing:border-box;flex:0 0 61px;min-height:61px;width:100%;margin:0!important;background:#11131c!important;color:#fff!important;box-shadow:none!important;border:0!important;border-radius:7px!important;padding:0!important;font-size:20px;cursor:pointer}
+.gemini-vehicle-sheet .gv-nav button:first-child{border-radius:15px 15px 7px 7px!important}.gemini-vehicle-sheet .gv-nav button.active{background:#262634!important;color:var(--gv-primary)!important;box-shadow:inset 0 0 0 1px var(--gv-primary)!important;border:0!important;outline:0!important}.gemini-vehicle-sheet .gv-nav button:hover{background:#2b2c39!important}.gemini-vehicle-sheet .gv-nav button:focus-visible{outline:0!important;box-shadow:inset 0 0 0 2px var(--gv-primary)!important}
+.gemini-vehicle-sheet .gv-panel{border-radius:15px;background:var(--gv-panel);padding:15px;overflow:auto;min-width:0;min-height:0}
+.gemini-vehicle-sheet .gv-page[hidden]{display:none!important}
+.gemini-vehicle-sheet .gv-page{min-width:0}.gemini-vehicle-sheet .gv-page-heading{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.gemini-vehicle-sheet .gv-page-heading h2{font-size:20px;line-height:1.2;color:#fff;margin:0!important;border:0!important;font-weight:900}
+.gemini-vehicle-sheet .gv-page-heading span{color:#9997a6;font-size:10px;font-weight:700}
+.gemini-vehicle-sheet .gv-skills-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.gemini-vehicle-sheet .gv-skill{min-width:0;min-height:77px;display:flex;align-items:center;justify-content:space-between;gap:7px;flex-direction:column;border-radius:15px;background:#333440;padding:10px 6px}
+.gemini-vehicle-sheet .gv-skill>span{color:#fff;font-weight:850;font-size:10px;text-align:center}
+.gemini-vehicle-sheet .gv-skill button{width:100%;min-height:27px;height:27px;display:flex;justify-content:space-around;align-items:center;gap:3px;background:var(--gv-purple)!important;color:#fff!important;border:0!important;border-radius:20px!important;box-shadow:none!important;font-family:'Fira Mono',monospace;font-size:12px;font-weight:800;padding:0 5px!important;cursor:pointer;margin:0!important;white-space:nowrap}
+.gemini-vehicle-sheet .gv-skill-unavailable{color:#9999a7;font-size:12px;min-height:27px}
+.gemini-vehicle-sheet .gv-control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:11px}
+.gemini-vehicle-sheet .gv-small-panel{min-width:0;min-height:94px;background:#30313c;border-radius:15px;padding:11px;display:flex;flex-direction:column;gap:7px}
+.gemini-vehicle-sheet .gv-small-panel>strong{font-size:11px;color:#fff}.gemini-vehicle-sheet .gv-small-panel>strong i{color:#ae00df;margin-right:5px}
+.gemini-vehicle-sheet .gv-small-panel select{height:27px!important;min-height:27px!important;background:#171820!important;color:#fff!important;border:0!important;border-radius:6px!important;padding:3px 7px!important;font-size:11px!important;box-shadow:none!important}
+.gemini-vehicle-sheet .gv-small-panel small{font-size:9px;color:#aaa9b3}
+.gemini-vehicle-sheet .gv-pm{display:flex;align-items:center;gap:11px;justify-content:center}.gemini-vehicle-sheet .gv-pm button{background:#171821!important;color:#fff!important;border:0!important;box-shadow:none!important;border-radius:6px!important;width:27px;min-height:27px;padding:0!important;margin:0!important}.gemini-vehicle-sheet .gv-pm b{font-family:'Fira Mono',monospace;font-size:19px}
+.gemini-vehicle-sheet .gv-operations-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.gemini-vehicle-sheet .gv-operations-buttons button,.gemini-vehicle-sheet .gv-accent-button{min-height:31px;background:var(--gv-purple)!important;border:0!important;box-shadow:none!important;border-radius:16px!important;color:#fff!important;cursor:pointer;font-size:11px;font-weight:800;padding:6px 10px!important;margin:0!important}
+.gemini-vehicle-sheet .gv-operations-buttons button{flex:1 1 auto}.gemini-vehicle-sheet .gv-operations-buttons button i{margin-right:4px}
+.gemini-vehicle-sheet .gv-repair-inline{margin-top:11px;padding:9px 10px;border-radius:11px;background:#30313c;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.gemini-vehicle-sheet .gv-repair-inline span{flex:1;font-size:11px;font-weight:800;white-space:nowrap}.gemini-vehicle-sheet .gv-repair-inline span i{color:var(--gv-primary)}
+.gemini-vehicle-sheet .gv-repair-inline input{width:65px;min-height:27px;height:27px!important;background:#161721!important;color:#fff!important;border:0!important;border-radius:7px!important;box-shadow:none!important;padding:3px 6px!important;text-align:center}
+.gemini-vehicle-sheet .gv-repair-inline button{height:27px;min-height:27px;width:30px;background:var(--gv-purple)!important;color:#fff!important;border:0!important;border-radius:7px!important;box-shadow:none!important;margin:0!important;padding:0!important}
+.gemini-vehicle-sheet .gv-hint{color:#a09fac;font-size:10px;line-height:1.45;margin:10px 0 0}
+.gemini-vehicle-sheet .gv-systemlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gemini-vehicle-sheet .gv-system{background:#32333e;padding:10px;border-radius:13px;min-width:0}
+.gemini-vehicle-sheet .gv-system-header{display:flex;align-items:start;justify-content:space-between;gap:5px}.gemini-vehicle-sheet .gv-system-header strong{font-size:12px;color:#fff}.gemini-vehicle-sheet .gv-system-header small{font-size:9px;color:#a6f684;white-space:nowrap;font-weight:800}.gemini-vehicle-sheet .gv-system-header small.gv-system-broken{color:#f35b7b}
+.gemini-vehicle-sheet .gv-system p{font-size:10px;color:#afafba;line-height:1.3;margin:7px 0 9px}
+.gemini-vehicle-sheet .gv-system-actions{display:flex;align-items:center;gap:4px}.gemini-vehicle-sheet .gv-system-actions span{font-size:10px;font-family:'Fira Mono',monospace;flex:1;color:#ddd}
+.gemini-vehicle-sheet .gv-system-actions button{width:24px;min-width:24px;height:24px;min-height:24px;background:#1e1f28!important;border:0!important;box-shadow:none!important;border-radius:6px!important;color:#fff!important;padding:0!important;cursor:pointer;margin:0!important;font-size:11px}
+.gemini-vehicle-sheet .gv-accent-button{margin-top:10px!important;width:100%}
+.gemini-vehicle-sheet .gv-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gemini-vehicle-sheet .gv-input{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;min-width:0;color:#adaeba;font-weight:850;font-size:10px}
+.gemini-vehicle-sheet .gv-input input,.gemini-vehicle-sheet .gv-input textarea,.gemini-vehicle-sheet .gv-input select{border:0!important;border-radius:8px!important;background:#343541!important;color:#fff!important;box-shadow:none!important;padding:7px 9px!important;min-width:0!important;width:100%;font-size:12px!important;font-family:inherit}
+.gemini-vehicle-sheet .gv-input input,.gemini-vehicle-sheet .gv-input select{height:31px!important;min-height:31px!important}.gemini-vehicle-sheet .gv-input textarea{resize:vertical;min-height:65px}
+.gemini-vehicle-sheet .gv-footer{text-align:right;color:#4b4b5a;font-weight:900;font-size:9px;line-height:10px;flex:0 0 10px;min-height:10px}.gemini-vehicle-sheet .gv-footer span{color:#7a7a86}
+.gemini-vehicle-sheet :is(input,select,textarea,button):disabled{opacity:.6;cursor:not-allowed!important}.gemini-vehicle-sheet :is(button,input,select,textarea):focus-visible{outline:1px solid #ae00df!important;outline-offset:1px}
+.gemini-vehicle-sheet ::-webkit-scrollbar{width:6px}.gemini-vehicle-sheet ::-webkit-scrollbar-thumb{background:var(--gv-purple);border-radius:7px}
+@media (max-width:1080px){.gemini-vehicle-sheet .gv-header-grid{grid-template-columns:minmax(0,1fr) 160px}.gemini-vehicle-sheet .gv-token{aspect-ratio:9/16}.gemini-vehicle-sheet .gv-skills-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.gemini-vehicle-sheet .gv-stat{padding:8px 5px}.gemini-vehicle-sheet .gv-stat-numbers input{font-size:19px!important}}
+
+/* System diagnostics over the permanent vehicle portrait; never blocks token clicks. */
+.gemini-vehicle-sheet .gv-system-indicators{position:absolute;z-index:3;top:52px;left:11px;right:11px;display:flex;align-items:flex-start;flex-wrap:wrap;gap:7px;pointer-events:none}
+.gemini-vehicle-sheet .gv-damage-indicator{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;border-radius:8px;backdrop-filter:blur(7px);font-size:15px;position:relative}
+.gemini-vehicle-sheet .gv-damage-indicator--damaged{background:#57161ccf;color:#ff8e8e;border:1px solid #ff73738a;box-shadow:0 0 7px #d31e2561;animation:gv-diagnostic-pulse 1.15s ease-in-out infinite alternate}
+.gemini-vehicle-sheet .gv-damage-indicator--offline{background:#161616e6;color:#b1b1b1;filter:grayscale(1);border:1px solid #777;animation:none!important;box-shadow:inset 0 0 0 1px #080808}
+.gemini-vehicle-sheet .gv-damage-indicator .sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@keyframes gv-diagnostic-pulse{0%{opacity:.48;filter:brightness(.75);box-shadow:0 0 1px #b91b2733}100%{opacity:1;filter:brightness(1.45);box-shadow:0 0 15px #f24b4ba0}}
+@media(prefers-reduced-motion:reduce){.gemini-vehicle-sheet .gv-damage-indicator--damaged{animation:none!important;opacity:1}}
+/* Respect the dynamically inherited Gemini theme; default remains the base purple. */
+.gemini-vehicle-sheet .gv-skill button,.gemini-vehicle-sheet .gv-accent-button{background:var(--gv-purple)!important}
+.gemini-vehicle-sheet .gv-driver-empty i,.gemini-vehicle-sheet .gv-token-caption i{color:var(--gv-primary)!important}
+.gemini-vehicle-sheet :is(button,input,select,textarea):focus-visible{outline-color:var(--gv-primary)!important}
+
+.gemini-vehicle-sheet .gv-identity{position:relative;isolation:isolate}
+.gemini-vehicle-sheet .gv-header-theme-video{position:absolute;inset:0;height:100%;width:100%;object-fit:cover;z-index:0;opacity:.3;pointer-events:none}
+.gemini-vehicle-sheet .gv-identity .gv-name,.gemini-vehicle-sheet .gv-identity .gv-ident-desc{position:relative;z-index:1}

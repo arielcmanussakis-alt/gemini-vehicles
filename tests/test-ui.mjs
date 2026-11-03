@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const template=readFileSync(new URL('../templates/vehicle-sheet.hbs',import.meta.url),'utf8');
+const js=readFileSync(new URL('../scripts/main.mjs',import.meta.url),'utf8');
+const css=readFileSync(new URL('../styles/vehicles.css',import.meta.url),'utf8');
+assert.equal((template.match(/class="gv-stat gv-stat-/g)||[]).length,3,'three core stats');
+assert.equal((template.match(/data-gv-nav="/g)||[]).length,3,'three tabs');
+assert.equal((template.match(/data-gv-page="/g)||[]).length,3,'three pages');
+assert.match(template,/data-gv-action="applyDamage"/,'damage button');
+assert.match(template,/data-gv-action="openDriver"/,'open driver');
+assert.match(template,/data-gv-action="clearDriver"/,'remove driver');
+assert.ok(template.indexOf('class="gv-token"') < template.indexOf('class="gv-workspace"'),'token outside page-switching workspace');
+assert.match(css,/aspect-ratio:9\/16/,'token aspect');
+assert.match(css,/\.gv-page\[hidden\]\{display:none!important\}/,'tab hidden CSS');
+assert.match(js,/root\.addEventListener\("click"/,'explicit clickable controls');
+assert.match(js,/driverZone\.addEventListener\("drop"/,'native drag/drop');
+assert.match(js,/\["operations","systems","notes"\]/,'valid tab selections');
+assert.ok(!template.includes('data-action='),'do not mix V2 framework actions');
+
+assert.ok(!template.includes('GEMINI FORCE <span'),'no legacy brand in vehicle heading');
+assert.match(css,/-webkit-text-fill-color:#fff!important/,'white name even when disabled');
+assert.match(css,/gv-stat-top\{[^}]*justify-content:center/,'center stat labels');
+assert.match(template,/class="gv-system-indicators"/,'status icons overlay token');
+assert.match(css,/gv-damage-indicator--damaged\{[^}]*animation:/,'damaged blinks');
+assert.match(css,/gv-damage-indicator--offline\{[^}]*animation:none/,'offline monochrome, non blinking');
+assert.match(css,/gv-nav button.active\{[^}]*box-shadow:inset/,'selected tab outline inside border');
+assert.match(js,/driver\?\.system\?\.gemini\?\.theme/,'read driver native theme');
+assert.match(js,/native\.rollSkill\(item\)/,'delegate native roll');
+assert.match(js,/systems:sys, damagedSystems:sys\.filter/,'per-system status processing');
+
+console.log('Gemini Vehicles v0.4 UI: 23 checks passed');

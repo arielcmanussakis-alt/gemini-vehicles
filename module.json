@@ -1,0 +1,32 @@
+{
+  "id": "gemini-vehicles",
+  "title": "Gemini Vehicles | Fichas de Veículos",
+  "description": "Ficha compacta de veículos com token persistente 9:16, condutor vinculado, perícias e danos automatizados.",
+  "version": "0.4.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "authors": [
+    {
+      "name": "Gemini Force Universe"
+    }
+  ],
+  "esmodules": [
+    "scripts/main.mjs"
+  ],
+  "styles": [
+    "styles/vehicles.css"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "mythras",
+        "type": "system"
+      }
+    ]
+  },
+  "url": "https://github.com/arielcmanussakis-alt/gemini-vehicles",
+  "manifest": "https://raw.githubusercontent.com/arielcmanussakis-alt/gemini-vehicles/main/module.json",
+  "download": "https://raw.githubusercontent.com/arielcmanussakis-alt/gemini-vehicles/main/dist/gemini-vehicles-v0.4.0.zip"
+}

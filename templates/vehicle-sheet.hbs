@@ -1,0 +1,131 @@
+<div class="gv-shell">
+  {{!-- Visual inheritance: actor system.gemini.theme. Assets are only shown if the native theme provides them. --}}
+  {{#if themeMedia.backgroundImage}}
+  <div class="gv-theme-media" aria-hidden="true">
+    <img src="{{themeMedia.backgroundImage}}" alt="">
+    {{#if themeMedia.backgroundVideo}}<video autoplay loop muted playsinline><source src="{{themeMedia.backgroundVideo}}" type="video/mp4"></video>{{/if}}
+  </div>
+  {{/if}}
+  {{!-- Persistent 9:16 portrait: outside tab contents and outside scroll container. --}}
+  <aside class="gv-token" aria-label="Token do veículo">
+    <img class="gv-token-img" src="{{vehicleImg}}" alt="Token de {{actor.name}}">
+    <div class="gv-token-shade"></div>
+    {{!-- Persistent, minimally styled indicators for each system that has sustained damage --}}
+    {{#if damagedSystems.length}}
+    <div class="gv-system-indicators" aria-label="Sistemas avariados do veículo">
+      {{#each damagedSystems}}
+      <div class="gv-damage-indicator {{#if inactive}}gv-damage-indicator--offline{{else}}gv-damage-indicator--damaged{{/if}}" title="{{name}} — {{severity}} ({{hits}}/{{max}})">
+        <i class="fa-solid {{icon}}" aria-hidden="true"></i><span class="sr-only">{{name}}: {{severity}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+    <button type="button" class="gv-token-edit" data-gv-action="editImage" title="Trocar imagem do veículo" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-pen"></i></button>
+    <div class="gv-token-caption"><i class="fa-solid fa-car-side"></i><span>TOKEN DO VEÍCULO</span></div>
+  </aside>
+
+  <div class="gv-workspace">
+    <div class="gv-header-grid">
+      <section class="gv-identity" {{#if themeMedia.bannerImage}}style="--gv-banner-image:url('{{themeMedia.bannerImage}}')"{{/if}}>
+        {{#if themeMedia.bannerVideo}}<video class="gv-header-theme-video" autoplay loop muted playsinline aria-hidden="true"><source src="{{themeMedia.bannerVideo}}" type="video/mp4"></video>{{/if}}
+        <input class="gv-name" name="name" type="text" value="{{actor.name}}" placeholder="Nome do veículo" aria-label="Nome do veículo" {{#unless canEdit}}disabled{{/unless}}>
+        <div class="gv-ident-desc"><i class="fa-solid fa-circle-dot"></i> Ficha de veículo <span>·</span> Mythras / Gemini</div>
+      </section>
+
+      <section class="gv-stats" aria-label="Atributos principais">
+        <div class="gv-stat gv-stat-structure">
+          <div class="gv-stat-top"><span>ESTRUTURA</span><i class="fa-solid fa-heart-pulse"></i></div>
+          <div class="gv-stat-numbers"><input name="gv.structure.value" type="number" min="0" value="{{vehicle.structure.value}}" aria-label="Estrutura atual" {{#unless canEdit}}disabled{{/unless}}><b>/</b><input name="gv.structure.max" type="number" min="0" value="{{vehicle.structure.max}}" aria-label="Estrutura máxima" {{#unless canEdit}}disabled{{/unless}}></div>
+          <div class="gv-stat-bar"><span style="width:{{structurePercent}}%"></span></div>
+          <div class="gv-stat-quick" title="Dano bruto: Escudos → Casco → Estrutura"><input type="number" min="1" step="1" data-gv-damage placeholder="Dano" aria-label="Dano recebido" {{#unless canEdit}}disabled{{/unless}}><button type="button" data-gv-action="applyDamage" title="Receber dano (aplica Escudos e Casco automaticamente)" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-arrow-down"></i></button></div>
+        </div>
+        <div class="gv-stat gv-stat-casco">
+          <div class="gv-stat-top"><span>CASCO</span><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="gv-stat-numbers"><input name="gv.casco" type="number" min="0" value="{{vehicle.casco}}" aria-label="Proteção do Casco" {{#unless canEdit}}disabled{{/unless}}><b class="gv-stat-unit">PA</b></div>
+          <div class="gv-stat-caption">Redução de dano por impacto</div>
+        </div>
+        <div class="gv-stat gv-stat-shields">
+          <div class="gv-stat-top"><span>ESCUDO</span><i class="fa-solid fa-bolt"></i></div>
+          <div class="gv-stat-numbers"><input name="gv.shields.value" type="number" min="0" value="{{vehicle.shields.value}}" aria-label="Escudos atuais" {{#unless canEdit}}disabled{{/unless}}><b>/</b><input name="gv.shields.max" type="number" min="0" value="{{vehicle.shields.max}}" aria-label="Escudos máximos" {{#unless canEdit}}disabled{{/unless}}></div>
+          <div class="gv-stat-bar"><span style="width:{{shieldsPercent}}%"></span></div>
+          <div class="gv-stat-caption">Proteção energética, quando disponível</div>
+        </div>
+      </section>
+
+      <section class="gv-basic-info" aria-label="Dados básicos do veículo">
+        <label><span>TAMANHO</span><select name="gv.size" {{#unless canConfigure}}disabled{{/unless}}>{{#each sizeOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label><span>VELOCIDADE</span><select name="gv.speed" {{#unless canConfigure}}disabled{{/unless}}>{{#each speedOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label><span>MANUSEIO</span><select name="gv.handling" {{#unless canConfigure}}disabled{{/unless}}>{{#each handlingOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+      </section>
+
+      <aside class="gv-driver-portrait gv-driver-drop" title="Arraste uma ficha de personagem para vincular o condutor">
+        {{#if driver}}
+        <img class="gv-driver-img" src="{{driver.img}}" alt="Retrato de {{driver.name}}">
+        <div class="gv-driver-overlay"></div>
+        <div class="gv-driver-buttons"><button type="button" data-gv-action="openDriver" title="Abrir ficha do condutor" aria-label="Abrir ficha do condutor"><i class="fa-solid fa-user"></i></button><button type="button" data-gv-action="clearDriver" title="Retirar condutor" aria-label="Retirar condutor" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-xmark"></i></button></div>
+        <div class="gv-driver-name"><small>CONDUTOR</small><strong>{{driver.name}}</strong></div>
+        {{else}}
+        <div class="gv-driver-empty"><i class="fa-solid fa-user-plus"></i><strong>{{#if missingDriver}}CONDUTOR INACESSÍVEL{{else}}SEM CONDUTOR{{/if}}</strong><small>Arraste a ficha de personagem aqui</small></div>
+        {{#if missingDriver}}<div class="gv-driver-buttons"><button type="button" data-gv-action="clearDriver" title="Remover vínculo" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-xmark"></i></button></div>{{/if}}
+        {{/if}}
+      </aside>
+    </div>
+
+    <div class="gv-main-layout">
+      <nav class="gv-nav" aria-label="Abas do veículo">
+        <button type="button" data-gv-action="tab" data-page="operations" data-gv-nav="operations" title="Operação / perícias"><i class="fa-solid fa-gauge-high"></i></button>
+        <button type="button" data-gv-action="tab" data-page="systems" data-gv-nav="systems" title="Sistemas e avarias"><i class="fa-solid fa-gears"></i></button>
+        <button type="button" data-gv-action="tab" data-page="notes" data-gv-nav="notes" title="Detalhes e notas"><i class="fa-solid fa-clipboard-list"></i></button>
+      </nav>
+
+      <main class="gv-panel" aria-live="polite">
+        <section data-gv-page="operations" class="gv-page">
+          <header class="gv-page-heading"><h2>OPERAÇÃO</h2><span>Perícias do condutor e manobras</span></header>
+          <div class="gv-skills-grid">
+          {{#each skills}}
+            <div class="gv-skill"><span>{{label}}</span>{{#if available}}<button type="button" data-gv-action="rollSkill" data-skill="{{id}}" title="Rolar {{label}}"><i class="fa-solid fa-dice-d20"></i>{{total}}%</button>{{else}}<div class="gv-skill-unavailable" title="Perícia não encontrada">—</div>{{/if}}</div>
+          {{/each}}
+          </div>
+          <div class="gv-control-grid">
+            <div class="gv-small-panel"><strong><i class="fa-solid fa-sliders"></i> Dificuldade</strong><select name="roll.grade" aria-label="Grau dos testes">{{#each gradeOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select><small>Aplicada aos testes de perícia.</small></div>
+            <div class="gv-small-panel"><strong><i class="fa-solid fa-arrows-left-right"></i> Movimento</strong><div class="gv-pm"><button type="button" data-gv-action="addMovement" data-delta="-1" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-minus"></i></button><b>{{vehicle.movementPoints}}</b><button type="button" data-gv-action="addMovement" data-delta="1" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-plus"></i></button></div><small>Pontos na perseguição (gestão do Mestre).</small></div>
+          </div>
+          <div class="gv-operations-buttons">
+            <button type="button" data-gv-action="rollPushSpeed" data-steps="1"><i class="fa-solid fa-gauge-high"></i> Forçar +1</button>
+            <button type="button" data-gv-action="rollPushSpeed" data-steps="2"><i class="fa-solid fa-forward-fast"></i> Forçar +2</button>
+            <button type="button" data-gv-action="rollLossControl"><i class="fa-solid fa-car-burst"></i> Perda de controle</button>
+          </div>
+          <div class="gv-repair-inline"><span><i class="fa-solid fa-screwdriver-wrench"></i> Reparar Estrutura</span><input type="number" min="1" step="1" data-gv-repair placeholder="PV" aria-label="Pontos de Estrutura restaurados"><button type="button" data-gv-action="recoverStructure" title="Restaurar Estrutura" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-plus"></i></button></div>
+          <p class="gv-hint">A rolagem consulta a perícia atual do condutor. Testes diferenciais, colisões e efeitos especiais são resolvidos pelo Mestre.</p>
+        </section>
+
+        <section data-gv-page="systems" class="gv-page" hidden>
+          <header class="gv-page-heading"><h2>SISTEMAS</h2><span>{{activeSystems}} operacionais / {{systems.length}} totais</span></header>
+          <div class="gv-systemlist">
+            {{#each systems}}
+            <div class="gv-system">
+              <div class="gv-system-header"><strong>{{name}}</strong><small class="{{#if inactive}}gv-system-broken{{/if}}">{{severity}}</small></div>
+              <p>{{detail}}</p>
+              <div class="gv-system-actions"><span>{{hits}} / {{max}} impactos</span><button type="button" data-gv-action="setSystemHit" data-system="{{id}}" data-delta="-1" title="Reparar" {{#unless ../canEdit}}disabled{{/unless}}><i class="fa-solid fa-minus"></i></button><button type="button" data-gv-action="setSystemHit" data-system="{{id}}" data-delta="1" title="Adicionar avaria" {{#unless ../canEdit}}disabled{{/unless}}><i class="fa-solid fa-plus"></i></button><button type="button" data-gv-action="editSystem" data-system="{{id}}" title="Editar sistema" {{#unless ../canEdit}}disabled{{/unless}}><i class="fa-solid fa-pen"></i></button><button type="button" data-gv-action="removeSystem" data-system="{{id}}" title="Excluir sistema" {{#unless ../canEdit}}disabled{{/unless}}><i class="fa-solid fa-trash"></i></button></div>
+            </div>
+            {{/each}}
+          </div>
+          <button class="gv-accent-button" type="button" data-gv-action="addSystem" {{#unless canEdit}}disabled{{/unless}}><i class="fa-solid fa-plus"></i> Adicionar Sistema</button>
+          <p class="gv-hint">Dano que ultrapasse Escudos e Casco pode provocar avarias. O número de impactos tolerados por cada Sistema é configurável.</p>
+        </section>
+
+        <section data-gv-page="notes" class="gv-page" hidden>
+          <header class="gv-page-heading"><h2>DETALHES</h2><span>Características e informações</span></header>
+          <div class="gv-detail-grid">
+            <label class="gv-input"><span>CATEGORIA</span><select name="gv.category" {{#unless canConfigure}}disabled{{/unless}}>{{#each categories}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+            <label class="gv-input"><span>OCUPANTES</span><input type="number" min="0" name="gv.passengers" value="{{vehicle.passengers}}" {{#unless canConfigure}}disabled{{/unless}}></label>
+          </div>
+          <label class="gv-input"><span>MOTOR / PROPULSÃO</span><input name="gv.powerplant" type="text" value="{{vehicle.powerplant}}" placeholder="Ex.: motor V8, turbina, elétrico..." {{#unless canEdit}}disabled{{/unless}}></label>
+          <label class="gv-input"><span>CARACTERÍSTICAS ESPECIAIS (TRAITS)</span><textarea name="gv.features" rows="4" placeholder="Ex.: Anfíbio, 4x4, assentos ejetáveis..." {{#unless canEdit}}disabled{{/unless}}>{{vehicle.features}}</textarea></label>
+          <label class="gv-input"><span>DESCRIÇÃO / ANOTAÇÕES</span><textarea name="gv.notes" rows="5" placeholder="Histórico, equipamentos, modificações e observações..." {{#unless canEdit}}disabled{{/unless}}>{{vehicle.notes}}</textarea></label>
+        </section>
+      </main>
+    </div>
+    <footer class="gv-footer">GEMINI VEHICLES <span>v0.4.0</span></footer>
+  </div>
+</div>

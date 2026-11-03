@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import { DEFAULT_VEHICLE, coerceVehicle, findSkill, skillTotal, modifiedSkill, resultLevel, resolveDamage, improveSpeed, SKILL_DEFINITIONS,rollResultRows } from '../scripts/rules.mjs';
+const sample={type:'standardSkill',name:'MYTHRAS.Drive', totalVal:78,system:{totalVal:0,baseVal:{value:30},trainingVal:15,miscBonus:0}};
+const drive=SKILL_DEFINITIONS.find(x=>x.id==='drive');
+assert.equal(findSkill([sample],drive,x=>x==='MYTHRAS.Drive'?'Condução':x),sample);
+assert.equal(skillTotal(sample),78,'must use computed getter instead of system.totalVal');
+assert.equal(modifiedSkill(60,'padrao'),60);
+assert.equal(modifiedSkill(60,'dificil'),40);
+assert.equal(modifiedSkill(60,'formidavel'),30);
+assert.equal(resultLevel(4,60).kind,'critical');
+assert.equal(resultLevel(5,5).kind,'success');
+assert.equal(resultLevel(96,110,110).kind,'failure');
+assert.equal(resultLevel(99,130,120).kind,'failure');
+assert.equal(resultLevel(99,130,95).kind,'failure'); // Original Gemini tests the modified difficulty, not raw base
+assert.equal(resultLevel(99,95).kind,'fumble');
+assert.equal(resultLevel(100,130,150).kind,'fumble');
+let v=coerceVehicle({...DEFAULT_VEHICLE,casco:4,shields:{value:5,max:5},structure:{value:24,max:24}});
+let hit=resolveDamage(v,16);
+assert.deepEqual([hit.absorbedShields,hit.absorbedHull,hit.penetration,hit.nextStructure,hit.nextShields,hit.systemChance],[5,4,7,17,0,7]);
+assert.equal(resolveDamage(v,3).penetration,0);
+assert.equal(resolveDamage(v,400).systemChance,100);
+assert.equal(resolveDamage(v,400).destroyed,true);
+assert.equal(improveSpeed('moderado',1),'Rápido');
+assert.equal(improveSpeed('extremo',2),'Extremo');
+assert.notEqual(coerceVehicle({}).systems,DEFAULT_VEHICLE.systems,'new records must not alias shared systems');
+console.log('Gemini Vehicles: 15 checks passed');
+
+assert.equal(modifiedSkill(60,'herculeo'),6);
+assert.deepEqual(rollResultRows(20,60).map(r=>r.target),[120,90,60,40,30,6]);
+assert.equal(rollResultRows(20,60)[0].descriptionClass,'text-green');
+assert.equal(rollResultRows(20,60)[5].descriptionClass,'text-red');
+assert.equal(rollResultRows(1,60)[2].descriptionClass,'text-goldenrod');
+assert.equal(rollResultRows(99,60)[2].descriptionClass,'text-darkred');
